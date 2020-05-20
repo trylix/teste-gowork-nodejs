@@ -68,7 +68,7 @@ describe('Office', () => {
   });
 
   it('should be able list all offices', async () => {
-    factory.createMany('Office', 10);
+    await factory.create('Office');
 
     const response = await request(app)
       .get('/api/offices')

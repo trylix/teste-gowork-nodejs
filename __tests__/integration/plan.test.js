@@ -66,16 +66,16 @@ describe('Plan', () => {
   });
 
   it('should be able list all plans', async () => {
-    await factory.createMany('Plan', 10);
+    await factory.create('Plan');
 
     const response = await request(app)
       .get('/api/plans')
       .set('Authorization', `Bearer ${token}`)
       .send();
-    console.log(response.body);
+
     expect(response.status).toBe(200);
 
-    // expect(response.body[0]).toHaveProperty('id');
+    expect(response.body[0]).toHaveProperty('id');
   });
 
   it('should not be able create plan missing authorization', async () => {
