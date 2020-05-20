@@ -27,12 +27,12 @@ describe('Office', () => {
   });
 
   it('should be able to register office', async () => {
-    const otherOffice = await factory.attrs('Office');
+    const office = await factory.attrs('Office');
 
     const response = await request(app)
       .post('/api/offices')
       .set('Authorization', `Bearer ${token}`)
-      .send(otherOffice);
+      .send(office);
 
     expect(response.status).toBe(201);
 
@@ -63,17 +63,29 @@ describe('Office', () => {
         city,
         state,
       });
-      
+
     expect(response.status).toBe(401);
   });
 
   it('should be able list all offices', async () => {
+    factory.createMany('Office', 10);
+
     const response = await request(app)
       .get('/api/offices')
       .set('Authorization', `Bearer ${token}`)
       .send();
 
     expect(response.status).toBe(200);
+
+    expect(response.body).toHaveProperty('id');
+  });
+
+  it('should not be able create office missing authorization', async () => {
+    const office = await factory.attrs('Office');
+
+    const response = await request(app).post('/api/offices').send(office);
+
+    expect(response.status).toBe(401);
   });
 
   it('should not be able list offices missing authorization', async () => {

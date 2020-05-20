@@ -10,6 +10,7 @@ import helmet from 'helmet';
 import path from 'path';
 import Youch from 'youch';
 
+import DuplicatedItemError from './app/exceptions/DuplicatedItemError';
 import sentryConfig from './config/sentry';
 import routes from './routes';
 
@@ -34,6 +35,10 @@ app.use(async (err, req, res, next) => {
     const errors = await new Youch(err, req).toJSON();
 
     return res.status(500).json(errors);
+  }
+
+  if (err instanceof DuplicatedItemError) {
+    return res.status(401).json({ error: err.message });
   }
 
   return res.status(500).json({ error: 'Erro interno do servidor.' });
