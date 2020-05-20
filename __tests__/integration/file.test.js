@@ -6,7 +6,7 @@ import app from '../../src/App';
 import factory from '../factories';
 import truncate from '../util/truncate';
 
-describe('File', () => {
+describe('integration test from /upload endpoint', () => {
   const filePath = `${__dirname}/../util/image.jpg`;
 
   let user;

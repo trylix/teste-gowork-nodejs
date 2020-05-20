@@ -5,7 +5,7 @@ import app from '../../src/App';
 import factory from '../factories';
 import truncate from '../util/truncate';
 
-describe('Customer', () => {
+describe('integration test from /customers endpoint', () => {
   let user;
   let token;
 

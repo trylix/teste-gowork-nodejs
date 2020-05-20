@@ -6,7 +6,7 @@ import app from '../../src/App';
 import factory from '../factories';
 import truncate from '../util/truncate';
 
-describe('User', () => {
+describe('integration test from /auth endpoint', () => {
   beforeEach(async () => {
     await truncate();
   });
