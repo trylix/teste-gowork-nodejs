@@ -1,6 +1,8 @@
 import Sequelize, { Model } from 'sequelize';
 
 import Customer from './Customer';
+import Office from './Office';
+import Plan from './Plan';
 
 class Employee extends Model {
   static init(sequelize) {
@@ -27,6 +29,8 @@ class Employee extends Model {
     return this.findByPk(id, {
       attributes: ['id', 'name'],
       include: {
+        model: Customer,
+        as: 'customer',
         attributes: ['id', 'name', 'is_company', 'document'],
         include: [
           {
@@ -51,7 +55,19 @@ class Employee extends Model {
       include: {
         model: Customer,
         as: 'customer',
-        attributes: ['id', 'name', 'email'],
+        attributes: ['id', 'name', 'is_company', 'document'],
+        include: [
+          {
+            model: Office,
+            as: 'office',
+            attributes: ['id', 'name', 'city', 'state', 'image'],
+          },
+          {
+            model: Plan,
+            as: 'plan',
+            attributes: ['id', 'name', 'monthly_cost'],
+          },
+        ],
       },
     });
   }
