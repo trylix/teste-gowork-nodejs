@@ -77,7 +77,7 @@ describe('Office', () => {
 
     expect(response.status).toBe(200);
 
-    expect(response.body).toHaveProperty('id');
+    expect(response.body[0]).toHaveProperty('id');
   });
 
   it('should not be able create office missing authorization', async () => {

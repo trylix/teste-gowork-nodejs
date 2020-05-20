@@ -1,4 +1,4 @@
 node_modules
-__tests__/coverage
 .tmp
 .env
+__tests__/coverage
