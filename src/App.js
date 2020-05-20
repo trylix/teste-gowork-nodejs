@@ -11,6 +11,8 @@ import path from 'path';
 import Youch from 'youch';
 
 import DuplicatedItemError from './app/exceptions/DuplicatedItemError';
+import InvalidArgumentsError from './app/exceptions/InvalidArgumentsError';
+import NulledItemError from './app/exceptions/NulledItemError';
 import sentryConfig from './config/sentry';
 import routes from './routes';
 
@@ -37,8 +39,15 @@ app.use(async (err, req, res, next) => {
     return res.status(500).json(errors);
   }
 
-  if (err instanceof DuplicatedItemError) {
+  if (
+    err instanceof DuplicatedItemError ||
+    err instanceof InvalidArgumentsError
+  ) {
     return res.status(401).json({ error: err.message });
+  }
+
+  if (err instanceof NulledItemError) {
+    return res.status(404).json({ error: err.message });
   }
 
   return res.status(500).json({ error: 'Erro interno do servidor.' });
