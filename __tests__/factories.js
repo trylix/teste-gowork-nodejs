@@ -2,6 +2,7 @@ import { factory } from 'factory-girl';
 import faker from 'faker';
 
 import Customer from '../src/app/models/Customer';
+import Employee from '../src/app/models/Employee';
 import Office from '../src/app/models/Office';
 import Plan from '../src/app/models/Plan';
 import User from '../src/app/models/User';
@@ -25,11 +26,16 @@ factory.define('Plan', Plan, {
 });
 
 factory.define('Customer', Customer, {
-  name: 'Marcus Paulo',
+  name: faker.name.findName(),
   is_company: '0',
   document: '124.567.756-58',
   office_id: 1,
   plan_id: 1,
+});
+
+factory.define('Employee', Employee, {
+  name: faker.name.findName(),
+  customer_id: 1,
 });
 
 export default factory;
