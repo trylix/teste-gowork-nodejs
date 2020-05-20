@@ -16,9 +16,7 @@ class Plan extends Model {
   }
 
   static async getAll() {
-    return this.findAll({
-      attributes: ['id', 'name', 'monthly_cost'],
-    });
+    return this.findAll();
   }
 
   static async getById(id) {
