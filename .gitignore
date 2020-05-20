@@ -2,3 +2,4 @@ node_modules
 .tmp
 .env
 __tests__/coverage
+.DS_Store
