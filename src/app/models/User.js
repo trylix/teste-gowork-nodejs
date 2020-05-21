@@ -20,6 +20,12 @@ class User extends Model {
   checkPassword(password) {
     return bcrypt.compare(password, this.password);
   }
+
+  static async getByEmail(email) {
+    return this.findOne({
+      where: { email },
+    });
+  }
 }
 
 export default User;

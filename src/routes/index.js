@@ -7,18 +7,21 @@ import EmployeeController from '../app/controllers/api/EmployeeController';
 import FileController from '../app/controllers/api/FileController';
 import OfficeController from '../app/controllers/api/OfficeController';
 import PlanController from '../app/controllers/api/PlanController';
+import UserController from '../app/controllers/api/UserController';
 import authMiddleware from '../app/middlewares/auth';
 import validateCustomerStore from '../app/validators/CustomerStore';
 import validateEmployeeStore from '../app/validators/EmployeeStore';
 import validateOfficeStore from '../app/validators/OfficeStore';
 import validatePlanStore from '../app/validators/PlanStore';
 import validateUserAuth from '../app/validators/UserAuth';
+import validateUserStore from '../app/validators/UserStore';
 import multerConfig from '../config/multer';
 
 const routes = Router();
 const upload = multer(multerConfig);
 
 routes.post('/api/auth', validateUserAuth, AuthController.store);
+routes.post('/api/user', validateUserStore, UserController.store);
 
 routes.use(authMiddleware);
 
