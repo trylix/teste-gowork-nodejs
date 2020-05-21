@@ -38,4 +38,38 @@ describe('integration test from /auth endpoint', () => {
 
     expect(response.status).toBe(401);
   });
+
+  it('should be able to register user', async () => {
+    const newUser = await factory.attrs('User');
+
+    const response = await request(app).post('/api/user').send({
+      name: newUser.name,
+      email: newUser.email,
+      password: newUser.password,
+    });
+
+    expect(response.status).toBe(201);
+  });
+
+  it('should not be able to register user duplicated email', async () => {
+    const newUser = await factory.create('User');
+
+    const response = await request(app).post('/api/user').send({
+      name: newUser.name,
+      email: newUser.email,
+      password: newUser.password,
+    });
+
+    expect(response.status).toBe(401);
+  });
+
+  it('should not be able to register user missing fields', async () => {
+    const newUser = await factory.attrs('User');
+
+    const response = await request(app).post('/api/user').send({
+      email: newUser.email,
+    });
+
+    expect(response.status).toBe(401);
+  });
 });
