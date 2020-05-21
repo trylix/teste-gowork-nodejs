@@ -23,11 +23,11 @@ Sentry.init(sentryConfig);
 app.use(Sentry.Handlers.requestHandler());
 app.use(helmet());
 app.use(cors());
-app.use(express.json());
 app.use(
-  '/storage/images',
+  '/api/storage',
   express.static(path.resolve(__dirname, '..', 'tmp', 'uploads')),
 );
+app.use(express.json());
 app.use(routes);
 
 app.use(Sentry.Handlers.errorHandler());

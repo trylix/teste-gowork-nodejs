@@ -1,0 +1,33 @@
+version: '3.6'
+
+networks:
+  coplace-network:
+    driver: bridge
+
+services:
+  coplace-api:
+    build: .
+    volumes:
+      - .:/home/node/api
+    environment:
+      - DB_HOST=coplace-postgres
+    depends_on:
+      - coplace-postgres
+    networks:
+      - coplace-network
+    container_name: coplace-api
+    command: yarn dev
+    ports:
+      - '3333:3333'
+
+  coplace-postgres:
+    image: postgres
+    container_name: coplace-postgres
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - '5432:5432'
+    networks:
+      - coplace-network

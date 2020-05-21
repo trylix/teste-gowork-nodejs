@@ -1,5 +1,5 @@
 import App from './App';
 
-App.listen(8000, () => {
+App.listen(process.env.APP_PORT || 3333, () => {
   console.log('Servidor iniciado! 🔥');
 });
